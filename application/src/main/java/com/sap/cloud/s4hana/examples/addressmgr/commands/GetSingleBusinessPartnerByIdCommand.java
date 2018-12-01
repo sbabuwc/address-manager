@@ -20,6 +20,21 @@ public class GetSingleBusinessPartnerByIdCommand {
 
     public BusinessPartner execute() throws Exception {
         // TODO: Replace with Virtual Data Model query
-        return null;
+        return service.getBusinessPartnerByKey(id)
+                .select(BusinessPartner.BUSINESS_PARTNER,
+                BusinessPartner.FIRST_NAME,
+                BusinessPartner.LAST_NAME,
+                        BusinessPartner.IS_MALE,
+                        BusinessPartner.IS_FEMALE,
+                        BusinessPartner.CREATION_DATE,
+                        BusinessPartner.TO_BUSINESS_PARTNER_ADDRESS.select(
+                                BusinessPartnerAddress.ADDRESS_ID,
+                                BusinessPartnerAddress.CITY_NAME,
+                                BusinessPartnerAddress.COUNTRY,
+                                BusinessPartnerAddress.HOUSE_NUMBER,
+                                BusinessPartnerAddress.POSTAL_CODE
+
+                        ))
+                .execute();
     }
 }
